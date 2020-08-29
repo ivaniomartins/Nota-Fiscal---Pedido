@@ -2,9 +2,9 @@ package programa;
 
 import java.util.Locale;
 import java.util.Scanner;
-
 import entidades.ItemPedido;
 import entidades.Pedido;
+
 import servicos.IcmsOrigemPernambuco;
 
 public class ProcessamentoDoPedido {
@@ -20,6 +20,7 @@ public class ProcessamentoDoPedido {
 		System.out.print("Informe quantos itens serão inseridos: ");
 		int n = sc.nextInt();
 
+		try {
 		for (int i = 1; i <= n; i++) {
 			System.out.print("Informe o produto: ");
 			String nomeProduto = sc.next();
@@ -29,8 +30,7 @@ public class ProcessamentoDoPedido {
 			double valorUnitario = sc.nextDouble();
 
 			ItemPedido item = new ItemPedido(nomeProduto, quantidade, valorUnitario);
-			// System.out.print("Produto: " + item.getNmProduto() + " Valor Total: "+
-			// String.format("%.2f", item.getValorTotal()));
+			
 			pedido.AddItem(item);
 		}
 		System.out.println();
@@ -43,12 +43,16 @@ public class ProcessamentoDoPedido {
 		}
 		System.out.println("Quantidade de Itens: " + n);
 		System.out.println("Valor total do Pedido: " + pedido.getNrPedido() + " R$" + pedido.SomaPedido());
-
+		
+	
 		IcmsOrigemPernambuco icms = new IcmsOrigemPernambuco();
 
-		System.out.println("Total do ICMS: ");
-		System.out.println(String.format("%.2f", icms.IcmsPe(pedido)));
-
+		System.out.println("Total do ICMS: " + " R$ " + String.format("%.2f", icms.IcmsPe(pedido)));
+		}
+		catch (Exception e){
+			System.out.println(e.getMessage());
+			
+		}
 		sc.close();
 
 	}
